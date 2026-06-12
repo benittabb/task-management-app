@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Management Application</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        input{
+            width: 70%;
+            padding: 10px;
+        }
+
+        button{
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        li{
+            list-style: none;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .completed{
+            text-decoration: line-through;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task Management Application</h1>
+
+    <input type="text" id="taskInput" placeholder="Enter Task">
+    <button onclick="addTask()">Add Task</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        function addTask() {
+            let input = document.getElementById("taskInput");
+            let task = input.value;
+
+            if(task === "") {
+                alert("Enter a task");
+                return;
+            }
+
+            let li = document.createElement("li");
+
+            li.innerHTML = `
+                <span>${task}</span>
+                <div>
+                    <button onclick="completeTask(this)">Done</button>
+                    <button onclick="deleteTask(this)">Delete</button>
+                </div>
+            `;
+
+            document.getElementById("taskList").appendChild(li);
+
+            input.value = "";
+        }
+
+        function deleteTask(btn){
+            btn.parentElement.parentElement.remove();
+        }
+
+        function completeTask(btn){
+            btn.parentElement.parentElement.querySelector("span")
+            .classList.toggle("completed");
+        }
+    </script>
+
+</body>
+</html>
